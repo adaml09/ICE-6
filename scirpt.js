@@ -135,25 +135,43 @@ document.getElementById("searchPokemon").addEventListener("click",
 async () => {
     console.log(userInput.value);
     let pokemonName = userInput.value;
-    let pokemoneInformation = document.getElementById("pokemonDetails");
+    let pokemonInformation = document.getElementById("pokemonDetails");
     // https://pokeapi.co/api/v2/pokemon/${pokemonName}
     let error = false;
     try{
+        // try to acces the pokeAPI to find the user selected program
         let pokemonDetails = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`)
         let pokemon = await pokemonDetails.json();
         console.log(pokemon);
+
+        // 3. If the api returns the pokemon details successfully, 
+        //then display the details of the pokemon in the HTML 
+        //(i.e. update the body of the HTML to have the pokemon)
+        console.log("NO ERROR");
+        // "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"
+        // "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png"
+        let pictureFront = pokemon.sprites.front_default;
+        let name = pokemon.name;
+        pokemonInformation.innerHTML = (`<img src="${pictureFront}" alt="Poke Pic">
+        <h1>${name}</h1>
+        <p></p>
+        `);
     }catch(e){
-        console.log("404 ERROR")
+        // 404 not found error caught
+        console.log("404 ERROR");
         error = true;
+        // if there is an error display a message to the user
+        pokemonInformation.innerHTML = (`<p>The pokemon you're looking for does not exist or can not be found.
+            Please check for any typos and try again.</p>`);
     }
 
-    if(error){
-        pokemoneInformation.innerHTML(`<p>The pokemon you're looking for does not exist or can not be found.
-            Please check for any typos and try again.</p>`)
-    }else if(!error){
-        console.log("NO ERROR")
-    }
+    //4 If  the api returns an error that it can't find the pokemon, 
+    //display the error to the user and ask them to type a different pokemon name
+    // if(error){
+        
+    // }else if(!error){
+        
+
+    // }
 
 });
-// 3. If the api returns the pokemon details successfully, then display the details of the pokemon in the HTML (i.e. update the body of the HTML to have the pokemon)
-//4 If  the api returns an error that it can't find the pokemon, display the error to the user and ask them to type a different pokemon name
