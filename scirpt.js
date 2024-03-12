@@ -152,9 +152,14 @@ async () => {
         // "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png"
         let pictureFront = pokemon.sprites.front_default;
         let name = pokemon.name;
+        let location = pokemon.location_area_encounters;
+        let weight = pokemon.weight;
+        let height = pokemon.height
         pokemonInformation.innerHTML = (`<img src="${pictureFront}" alt="Poke Pic">
         <h1>${name}</h1>
-        <p></p>
+        <p>Location: ${location}</p>
+        <p>Height: ${height}</p>
+        <p>Weight: ${weight}</p>
         `);
     }catch(e){
         // 404 not found error caught
